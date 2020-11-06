@@ -3,5 +3,6 @@ from . import views
 
 urlpatterns = [
     path('', views.warehouse_login),
+    path('dashboard', views.dashboard),
     
 ]

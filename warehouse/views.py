@@ -4,3 +4,6 @@ from django.http import HttpResponse
 
 def warehouse_login(request):
     return render(request, 'warehouse/login.html')
+
+def dashboard(request):
+     return render(request, 'warehouse/dashboard.html')
