@@ -1,0 +1,66 @@
+{% extends 'layout/app_layout.html' %}
+{% load static %}
+{% block content %}
+    <h1 class="page-title">Add Supplier</h1>
+    <div class="col-lg-10 col-md-6 float-center">
+        <div class="card shadow mb-4">
+          <div class="card-header">
+            <strong class="card-title"><i class="fe fe-user fe-16"></i></strong>
+          </div>
+          <div class="card-body">
+            <form class="needs-validation" novalidate method="POST">
+              {% csrf_token %}
+              <div class="form-row">
+                <div class=" col-md-8 mb-3">
+                  <label for="Supplier Name">Supplier Name</label>
+                  <input type="text" class="form-control" name="supplier_name" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                  <div class="invalid-feedback"> Please use a valid email </div>
+                  
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label for="validationCustomUsername">Brand</label>
+                  <div class="input-group">
+                    <input type="text" class="form-control" name="brand" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
+                   
+                  </div>
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="validationCustom01">Phone</label>
+                  <input type="text" class="form-control" name="phone" id="validationCustom01"  required>
+                 
+                </div>
+                <div class="col-md-6 mb-3">
+                  <label for="validationCustom02">GST/UIN</label>
+                  <input type="text" class="form-control" id="validationCustom02" name="gst" value="Otto" required>
+                  
+                </div>
+              </div>
+              <div class="form-row">
+                <div class="col-md-6 mb-3">
+                  <label for="validationCustom03">State</label>
+                  <input type="text" name="state" class="form-control" id="validationCustom03" required>
+                </div>
+                
+                <div class="col-md-3 mb-3">
+                  <label for="validationCustom05">code</label>
+                  <input type="text" class="form-control" name="code" id="validationCustom05" required>
+                
+                </div>
+                <div class="col-md-3 mb-3">
+                  <label for="validationCustom05">email</label>
+                  <input type="email" name="email" class="form-control"  id="validationCustom05" required>
+                
+                </div>
+              </div>
+              <div class="form-group mb-3">
+                <label for="validationTextarea">Address</label>
+                <textarea class="form-control" id="validationTextarea" name="address" placeholder="Required example textarea" required></textarea>
+                <div class="invalid-feedback"> Please enter a address in the textarea. </div>
+              </div>
+              <button class="btn btn-primary float-right" type="submit">Submit </button>
+            </form>
+          </div> <!-- /.card-body -->
+        </div> <!-- /.card -->
+      </div> <!-- /.col -->
+
+{% endblock %}

@@ -1,0 +1,61 @@
+{% extends 'layout/app_layout.html' %}
+{% load static %}
+{% block content %}
+<h1 class="page-title">Suppliers</h1>
+<div class="col-lg-4">
+</div>
+   <div class="col-lg-4">
+        <!-- alert message-->
+
+        {% for message in messages %}
+        <div class="alert alert-success" id="alert" role="alert">
+          <p>{{message}}</p>
+        </div>
+      {% endfor %}
+
+      <!--end alert message-->
+   </div>
+   <div class="col-lg-4">
+   </div>
+  <!-- Small table -->
+  <div class="col-md-12">
+    <div class="card shadow">
+      <div class="card-body">
+        <a href="supplier">
+        <button type="button" class="btn mb-2 btn-primary float-right"><span class="fe fe-user fe-16 mr-2"></span>Add Supplier</button></a>
+        <!-- table -->
+        <table class="table datatables" id="dataTable-1">
+          <thead>
+            <tr>
+                <th>ID</th>
+                <th>Name</th>
+                <td>Brand</td>
+                <th>Address</th>
+                <th>Phone</th>
+                <th>GST/UIN</th>
+                <th>State Name </th>
+                <th>Code</th>
+                <th>Email</th>
+               
+              </tr>
+            </thead>
+          <tbody>
+            <tr>
+                <td>1</td>
+                <td>ALAN DISTRIBUTERS</td>
+                <td>Apple</td>
+                <td>Door number 14/1084 A42 Peringalam road, kunnamngalam,kozhikode,673586</td>
+                <td>9644332211</td>
+                <td>36AHNJ875BG90KR</td>
+                <td>Kerala</td>
+                <td>32</td>
+                <td>naseefp.hin@gamil.com</td>
+            </tr>
+           
+            </tbody>
+           </table>
+       </div>
+    </div> 
+</div>
+
+{% endblock %}

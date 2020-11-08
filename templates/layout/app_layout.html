@@ -14,6 +14,8 @@
     <link href="https://fonts.googleapis.com/css2?family=Overpass:ital,wght@0,100;0,200;0,300;0,400;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
     <!-- Icons CSS -->
     <link rel="stylesheet" href="{% static 'css/feather.css' %}">
+    <!--datatble-->
+    <link rel="stylesheet" href="css/dataTables.bootstrap4.css">
     <!-- Date Range Picker CSS -->
     <link rel="stylesheet" href="{% static 'css/daterangepicker.css' %}">
     <!-- App CSS -->
@@ -97,14 +99,24 @@
               </ul>
             </li> 
           </ul>
+          
           <ul class="navbar-nav flex-fill w-100 mb-2">
             <li class="nav-item w-100">
-              <a class="nav-link" href="calendar.html">
-                <i class="fe fe-calendar fe-16"></i>
-                <span class="ml-3 item-text">Calendar</span>
+              <a class="nav-link" href="supplier">
+                <i class="fe fe-user fe-16"></i>
+                <span class="ml-3 item-text">Supplier</span>
               </a>
             </li>
           </ul>
+          <ul class="navbar-nav flex-fill w-100 mb-2">
+            <li class="nav-item w-100">
+              <a class="nav-link" href="supplier">
+                <i class="fe fe-calendar fe-16"></i>
+                <span class="ml-3 item-text">Supplier</span>
+              </a>
+            </li>
+          </ul>
+        
         </nav>
       </aside>
       <main role="main" class="main-content">
@@ -201,8 +213,21 @@
     <script src="{% static 'js/tinycolor-min.js' %}"></script>
     <script src="{% static 'js/config.js' %}"></script>
     <script src="{% static 'js/apps.js' %}"></script>
+    <script src="{% static 'js/jquery.dataTables.min.js' %}></script>
+    <script src="{% static 'js/dataTables.bootstrap4.min.js' %}"></script>
     <!-- Global site tag (gtag.js) - Google Analytics -->
     <script async src="https://www.googletagmanager.com/gtag/js?id=UA-56159088-1"></script>
+    <!--datatble-->
+    <script>
+      $('#dataTable-1').DataTable(
+      {
+        autoWidth: true,
+        "lengthMenu": [
+          [16, 32, 64, -1],
+          [16, 32, 64, "All"]
+        ]
+      });
+    </script>
     <script>
       window.dataLayer = window.dataLayer || [];
 
@@ -213,6 +238,14 @@
       gtag('js', new Date());
       gtag('config', 'UA-56159088-1');
     </script>
+    <!--Message auto clos-->
+     <script type="text/javascript"> 
+      setTimeout(function () { 
+  
+          // Closing the alert 
+          $('#alert').alert('close'); 
+      }, 3000); 
+  </script> 
   </body>
 </html>
 </body>
