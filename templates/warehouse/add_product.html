@@ -1,0 +1,39 @@
+{% extends 'layout/app_layout.html' %}
+{% load static %}
+{% block content %}
+    <h1 class="page-title">Add Product</h1>
+    <div class="col-lg-10 col-md-6 float-center">
+        <div class="card shadow mb-4">
+          <div class="card-header">
+            <strong class="card-title"><i class="fe fe-user fe-16"></i></strong>
+          </div>
+          <div class="card-body">
+            <form class="needs-validation" novalidate method="POST">
+              {% csrf_token %}
+             
+              <div class="form-row">
+                <div class="col-md-4 mb-3">
+                    <div class="form-group mb-3">
+                        <label for="custom-select">Select Brand</label>
+                        <select class="custom-select" id="custom-select" name="brand">
+                            {% for brand in brands %}  
+                            <option value="{{brand.id}}">{{brand.brand_name}}</option>
+                          {% endfor %}  
+                        </select>
+                      </div>
+                </div>
+
+                <div class=" col-md-8 mb-3">
+                    <label for="Supplier Name">Product Name</label>
+                    <input type="text" class="form-control" name="product_name" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <div class="invalid-feedback"> Please use a valid email </div>
+                    
+                </div>
+               
+              <button class="btn btn-primary float-right" type="submit">Submit </button>
+            </form>
+          </div> <!-- /.card-body -->
+        </div> <!-- /.card -->
+      </div> <!-- /.col -->
+
+{% endblock %}

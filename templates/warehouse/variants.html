@@ -22,16 +22,16 @@
      </div>
 </div>
 
-<h1 class="page-title"><span class="fe fe-user fe-32 mr-2"></span>Suppliers</h1>
-         <!-- Striped rows -->
+<h3 class="page-title"><span class="fe fe-home fe-22 mr-2"></span>Variant</h3>
+          <!-- Striped rows -->
           <div class="col-md-12 my-4">   
             <div class="card shadow">
               <div class="card-body">
                 <div class="toolbar row mb-3">
                   <div class="col ml-auto">
                     <div class="dropdown float-right">
-                      <a href="add_supplier">
-                      <button class="btn btn-primary float-right ml-3" type="button"><span class="fe fe-16 fe-user-plus"></span>&nbsp;&nbsp;&nbsp;Add Supplier </button></a>
+                      <a href="{% url 'add_variants' %}">
+                      <button class="btn btn-primary float-right ml-3" type="button"><span class="fe fe-16 fe-home"></span>&nbsp;&nbsp;&nbsp;Add Variant </button></a>
                      
                     </div>
                   </div>
@@ -47,18 +47,15 @@
                           <label class="custom-control-label" for="all"></label>
                         </div>
                       </th>
-                      <th>ID</th>
-                        <th>Name</th>
-                        <th>Brand</th>
-                        
-                        <th>Phone</th>
-                        <th>GST/UIN</th>
-                        <th>Address</th>
+                        <th>ID</th>
+                        <th>Color</th>
+                        <th>Ram</th>
+                        <th>Rom</th>
                         <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
-                    {% for supplier in suppliers %}
+                    {% for variant in variants %}
                     <tr>
                       <td>
                         <div class="custom-control custom-checkbox">
@@ -67,16 +64,11 @@
                         </div>
                       </td>
                       <td>1</td>
-                      <td>{{supplier.supplier_name}}</td>
-                      <td>{{supplier.brand_name}}</td>
-                    
-                      <td>{{supplier.supplier_phone}}</td>
-                      <td>{{supplier.gst_uin}}</td>
-                      <td>{{supplier.supplier_address}}</td>
-                      
+                      <td>{{variant.color}}</td>
+                      <td>{{branch.discription}}</td>
                       <td>
-                        <a class="dropdown-item" href="/edit_supplier/{{supplier.id}}">Edit</a>
-                        <a class="dropdown-item" href="/delete_supplier/{{supplier.id}}">Remove</a>
+                        <a class="dropdown-item" href="{% url 'edit_branch' branch.id %}">Edit</a>
+                        <a class="dropdown-item" href="{% url 'delete_branch' branch.id %}">Remove</a>
                       </td>
                     </tr>
                     {% endfor %}
