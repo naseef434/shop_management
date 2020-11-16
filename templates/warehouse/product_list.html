@@ -1,6 +1,7 @@
 {% extends 'layout/app_layout.html' %}
 {% load static %}
 {% block content %}
+
 <div class="row">
   <div class="col-lg-4">
   </div>
@@ -8,7 +9,7 @@
           <!-- alert message-->
   
           {% for message in messages %}
-          <div class="alert alert-success text-center" id="alert" role="alert">
+          <div class="alert alert-danger text-center" id="alert" role="alert">
             <p>{{message}}</p>
           </div>
           
@@ -22,7 +23,7 @@
      </div>
 </div>
 
-<h3 class="page-title"><span class="fe fe-home fe-22 mr-2"></span>Product</h3>
+
           <!-- Striped rows -->
           <div class="col-md-12 my-4">   
             <div class="card shadow">
@@ -31,9 +32,10 @@
                   <div class="col ml-auto">
                     <div class="dropdown float-right">
                       <a href="{% url 'add_product' %}">
-                      <button class="btn btn-primary float-right ml-3" type="button"><span class="fe fe-16 fe-home"></span>&nbsp;&nbsp;&nbsp;Add Product </button></a>
+                      <button class="btn btn-primary float-right ml-3" type="button"><span class="fe fe-16 fe-aperture"></span>&nbsp;&nbsp;&nbsp;Add Product </button></a>
                      
                     </div>
+                    <h2 class="h5 page-title"><span class="fe fe-aperture fe-22 mr-2">&nbsp;Products</span></h2>
                   </div>
                 </div>
                 <!-- table -->
@@ -41,33 +43,31 @@
                   <thead>
                     
                     <tr role="row">
-                      <th>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" id="all">
-                          <label class="custom-control-label" for="all"></label>
-                        </div>
-                      </th>
+                      
                       <th>ID</th>
-                        <th>Brand Name</th>
-                        <th>Product</th>
+                        <th>Brand NAME</th>
+                        <th>PRODUCT</th>
+                        <th>COLOR</th>
+                        <th>RAM</th>
+                        <th>ROM</th>
+                        <th>DISCRIPTION</th>
                         <th>Action</th>
                     </tr>
                   </thead>
                   <tbody>
                     {% for product in products %}
                     <tr>
-                      <td>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" id="4574">
-                          <label class="custom-control-label" for="4574"></label>
-                        </div>
-                      </td>
+                     
                       <td>1</td>
                       <td>{{product.brand.brand_name}}</td>
                       <td>{{product.name}}</td>
+                      <td>{{product.color}}</td>
+                      <td>{{product.ram}}</td>
+                      <td>{{product.rom}}</td>
+                      <td>{{product.discription}}</td>
                       <td>
-                        <a class="dropdown-item" href="/edit_product/{{product.id}}">Edit</a>
-                        <a class="dropdown-item" href="/delete_product/{{product.id}}">Remove</a>
+                        <a class="dropdown-item" href="/edit_product/{{product.id}}"><span class="fe fe-12 fe-edit"></a>
+                        <a class="dropdown-item" href="/delete_product/{{product.id}}"><span class="fe fe-12 fe-trash"></a>
                       </td>
                     </tr>
                     {% endfor %}

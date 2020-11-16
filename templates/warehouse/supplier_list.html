@@ -8,10 +8,11 @@
           <!-- alert message-->
   
           {% for message in messages %}
-          <div class="alert alert-success text-center" id="alert" role="alert">
-            <p>{{message}}</p>
-          </div>
-          
+        
+            <div class="alert alert-warning text-center" id="alert" role="alert">
+              <p>{{message}}</p>
+            </div>
+
         {% endfor %}
         
 
@@ -21,8 +22,8 @@
      <div class="col-lg-4">
      </div>
 </div>
+<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
 
-<h1 class="page-title"><span class="fe fe-user fe-32 mr-2"></span>Suppliers</h1>
          <!-- Striped rows -->
           <div class="col-md-12 my-4">   
             <div class="card shadow">
@@ -30,10 +31,11 @@
                 <div class="toolbar row mb-3">
                   <div class="col ml-auto">
                     <div class="dropdown float-right">
-                      <a href="add_supplier">
+                      <a href="{% url 'add_supplier' %}">
                       <button class="btn btn-primary float-right ml-3" type="button"><span class="fe fe-16 fe-user-plus"></span>&nbsp;&nbsp;&nbsp;Add Supplier </button></a>
                      
                     </div>
+                    <h2 class="h5 page-title"><span class="fe fe-user fe-22 mr-2">&nbsp;Suppliers</span></h2>
                   </div>
                 </div>
                 <!-- table -->
@@ -41,12 +43,7 @@
                   <thead>
                     
                     <tr role="row">
-                      <th>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" id="all">
-                          <label class="custom-control-label" for="all"></label>
-                        </div>
-                      </th>
+                      
                       <th>ID</th>
                         <th>Name</th>
                         <th>Brand</th>
@@ -60,12 +57,7 @@
                   <tbody>
                     {% for supplier in suppliers %}
                     <tr>
-                      <td>
-                        <div class="custom-control custom-checkbox">
-                          <input type="checkbox" class="custom-control-input" id="4574">
-                          <label class="custom-control-label" for="4574"></label>
-                        </div>
-                      </td>
+                     
                       <td>1</td>
                       <td>{{supplier.supplier_name}}</td>
                       <td>{{supplier.brand_name}}</td>
@@ -75,8 +67,8 @@
                       <td>{{supplier.supplier_address}}</td>
                       
                       <td>
-                        <a class="dropdown-item" href="/edit_supplier/{{supplier.id}}">Edit</a>
-                        <a class="dropdown-item" href="/delete_supplier/{{supplier.id}}">Remove</a>
+                        <a class="dropdown-item" href="{% url 'edit_supplier' supplier.id %}"><div class="p-3"><span class="fe fe-12 fe-edit"></span></div></a>
+                        <a class="dropdown-item" href="{% url 'delete_supplier' supplier.id %}"><div class="p-3"><span class="fe fe-12 fe-trash"></a>
                       </td>
                     </tr>
                     {% endfor %}

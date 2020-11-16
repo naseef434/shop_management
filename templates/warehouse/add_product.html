@@ -1,11 +1,11 @@
 {% extends 'layout/app_layout.html' %}
 {% load static %}
 {% block content %}
-    <h1 class="page-title">Add Product</h1>
+   
     <div class="col-lg-10 col-md-6 float-center">
         <div class="card shadow mb-4">
           <div class="card-header">
-            <strong class="card-title"><i class="fe fe-user fe-16"></i></strong>
+            <h2 class="h5 page-title"><span class="fe fe-aperture fe-22 mr-2">&nbsp;Products</span></h2>
           </div>
           <div class="card-body">
             <form class="needs-validation" novalidate method="POST">
@@ -30,8 +30,52 @@
                     
                 </div>
                
-              <button class="btn btn-primary float-right" type="submit">Submit </button>
+              </div>
+
+              <div class="form-row">
+               
+
+                <div class=" col-md-4 mb-3">
+                    <label for="Supplier Name">Product Color</label>
+                    <input type="text" class="form-control" name="color" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <div class="invalid-feedback"> Please use a valid email </div>
+                    
+                </div>
+
+                <div class=" col-md-4 mb-3">
+                  <label for="Supplier Name">RAM</label>
+                  <input type="text" class="form-control" name="ram" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                  <div class="invalid-feedback"> Please use a valid email </div>
+                  
+                </div>
+                <div class=" col-md-4 mb-3">
+                  <label for="Supplier Name">ROM</label>
+                  <input type="text" class="form-control" name="rom" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                  <div class="invalid-feedback"> Please use a valid email </div>
+                  
+              </div>
+               
+              </div>
+              <div class="form-row">
+               
+
+             
+                <div class=" col-md-12 mb-3">
+                  <label for="Supplier Name">Discription</label>
+                  <input type="text" class="form-control" name="discription" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                  <div class="invalid-feedback"> Please use a valid email </div>
+                  
+              </div>
+             
+               
+              </div>
+              <div class="form-row">
+                <div class=" col-md-12 mb-3">
+                  <button class="btn btn-primary float-right" type="submit">Submit </button>
+              </div>    
+            </div>
             </form>
+          
           </div> <!-- /.card-body -->
         </div> <!-- /.card -->
       </div> <!-- /.col -->

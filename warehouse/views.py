@@ -1,54 +1,67 @@
 from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib import messages
-
-from warehouse . models import Supplier,Branch,ProductModel,Variants
+from django.contrib.auth.models import User,auth
+from warehouse . models import Supplier,ProductModel
 
 
 def warehouse_login(request):
-    if request.method == "GET":
-        return render(request, 'warehouse/login.html')
-
+    if request.session.has_key('username'):
+        return redirect('dashboard')
+  
     elif request.method == "POST":
-        username = request.POST['username']
-        password = request.POST['password']  
-        
-        if username == "admin" and password == "admin":
-            request.session['username'] = username
-            return render(request, 'warehouse/dashboard.html')
+            username = request.POST['username']
+            password = request.POST['password']  
+            if username == "admin" and password == "admin":
+                request.session['username'] = username
+                return render(request, 'warehouse/dashboard.html')
+            else:
+                messages.error(request, ' Wrong username/password!')
+                return render(request, 'warehouse/login.html')
+    return render(request, 'warehouse/login.html')
 
 def dashboard(request):
     if request.session.has_key('username'):
         return render(request, 'warehouse/dashboard.html')
     else:
-        return redirect(warehouse_login)
-def supplier(request):
-    suppliers = Supplier.objects.all()
-    return render(request, 'warehouse/supplier_list.html',{'suppliers':suppliers})
-
+        return redirect('login')
 
 #supplier management start here
-def add_supplier(request):
-    if request.method == "GET":
-        return render(request, 'warehouse/add_supplier.html')
-    elif request.method == "POST":
-        supplier  = Supplier()
-        supplier.supplier_name = request.POST.get('supplier_name') 
-        supplier.brand_name  = request.POST.get('brand')
-        supplier.supplier_phone  = request.POST.get('phone')
-        supplier.gst_uin  = request.POST.get('gst')
-        supplier.state_name  = request.POST.get('state')
-        supplier.code  = request.POST.get('code')
-        supplier.email  = request.POST.get('email')
-        supplier.supplier_address  = request.POST.get('address')
-        supplier.save()
-        messages.success(request, 'Supplier Added successfully')
-        return redirect('supplier')
+def supplier(request):
+    if request.session.has_key('username'):
+        suppliers = Supplier.objects.all()
+        return render(request, 'warehouse/supplier_list.html',{'suppliers':suppliers})
+    else:
+        return redirect('login')
     
-def edit_supplier(request, id):
-    supplier = Supplier.objects.get(id=id)
-    return render(request, 'warehouse/edit_supplier.html', {'supplier':supplier})
 
+
+def add_supplier(request):
+     if request.session.has_key('username'):
+         if request.method == "POST": 
+            supplier  = Supplier()
+            supplier.supplier_name = request.POST.get('supplier_name') 
+            supplier.brand_name  = request.POST.get('brand')
+            supplier.supplier_phone  = request.POST.get('phone')
+            supplier.gst_uin  = request.POST.get('gst')
+            supplier.state_name  = request.POST.get('state')
+            supplier.code  = request.POST.get('code')
+            supplier.email  = request.POST.get('email')
+            supplier.supplier_address  = request.POST.get('address')
+            supplier.save()
+            messages.success(request, 'Supplier Added successfully')
+            return redirect('supplier')
+         else:
+            return render(request, 'warehouse/add_supplier.html')
+     else:
+         return redirect('login')
+
+def edit_supplier(request, id):
+    if request.session.has_key('username'):
+        supplier = Supplier.objects.get(id=id)
+        return render(request, 'warehouse/edit_supplier.html', {'supplier':supplier})
+    else:
+         return redirect('login')
 def update_supplier(request, id):
     if request.method == "POST":
         supplier = Supplier.objects.get(id=id)
@@ -76,27 +89,33 @@ def delete_supplier(request, id):
 #branch management start here
 
 def branch(request):
-    branches = Branch.objects.all()
-    return render(request, 'warehouse/branch_list.html',{'branches':branches})
+    if request.session.has_key('username'):
+        branches = User.objects.all()
+        return render(request, 'warehouse/branch_list.html',{'branches':branches})
+    else:
+        return redirect('login')
+
 
 def add_branch(request):
     if request.method == "GET":
         return render(request, 'warehouse/add_branch.html')
     elif request.method == "POST":
-        branch = Branch()
-        branch.branch_name = request.POST['branch_name']
-        branch.discription = request.POST['discription']
-        branch.save()
+        first_name = request.POST['branch_name']
+        last_name = request.POST['discription']
+        username = request.POST['username']
+        password = request.POST['password']
+        user = User.objects.create_user(first_name=first_name,last_name=last_name,username=username,password=password)
+        user.save()
         messages.success(request, 'Branch Added successfully')
         return redirect('branch')
 
 def edit_branch(request, id):
-    branch = Branch.objects.get(id=id)
+    branch = User.objects.get(id=id)
     return render(request, 'warehouse/edit_branch.html',{'branch':branch})
 
 def update_branch(request, id):
     if request.method == "POST":
-        branch  = Branch.objects.get(id=id)
+        branch  = User.objects.get(id=id)
         branch.branch_name = request.POST['branch_name']
         branch.discription = request.POST['discription']
         branch.save()
@@ -104,7 +123,7 @@ def update_branch(request, id):
         return redirect('branch')
 
 def delete_branch(request, id):
-    branch = Branch.objects.get(id=id)  
+    branch = User.objects.get(id=id)  
     branch.delete()  
     messages.info(request,"Branch Deleted Successfully")
     return redirect('branch')
@@ -114,8 +133,11 @@ def delete_branch(request, id):
 #product managemnt
 
 def product(request):
-    products = ProductModel.objects.all()
-    return render(request, 'warehouse/product_list.html',{'products':products})
+    if request.session.has_key('username'):
+        products = ProductModel.objects.all()
+        return render(request, 'warehouse/product_list.html',{'products':products})
+    else:
+        return redirect('login')
 
 def add_product(request):
     if request.method == "GET":
@@ -125,6 +147,10 @@ def add_product(request):
         product = ProductModel()
         product.name = request.POST['product_name']
         product.brand_id = request.POST['brand']
+        product.color = request.POST['color']
+        product.ram = request.POST['ram']
+        product.rom = request.POST['rom']
+        product.discription = request.POST['discription']
         product.save()
         messages.success(request, 'Product added succesfully!')
         return redirect('product')
@@ -132,16 +158,22 @@ def add_product(request):
         return HttpResponse("something goes wrong")
 
 def edit_product(request, id):
-    product = ProductModel.objects.get(id=id)
-    brands  = Supplier.objects.all()
-    return render(request, 'warehouse/edit_product.html', {'product':product, 'brands':brands})
+    if request.session.has_key('username'): 
+        product = ProductModel.objects.get(id=id)
+        brands  = Supplier.objects.all()
+        return render(request, 'warehouse/edit_product.html', {'product':product, 'brands':brands})
+    else:
+        return redirect('login')
 
 def update_product(request, id):
     if request.method == "POST":
         product  = ProductModel.objects.get(id=id)
-        product = ProductModel()
         product.name = request.POST['product_name']
         product.brand_id = request.POST['brand']
+        product.color = request.POST['color']
+        product.ram = request.POST['ram']
+        product.rom = request.POST['rom']
+        product.discription = request.POST['discription']
         product.save()
         messages.success(request, 'Product Upadated succesfully!')
         return redirect('product')
@@ -152,29 +184,19 @@ def delete_product(request, id):
     messages.info(request,"Product Deleted Successfully")
     return redirect('product')
 #product management end here
+def purchase(request):
+    return render(request, 'warehouse/purchase.html')
 
-#variants managing
+def add_purchase(request):
+    supplier = Supplier.objects.all()
+    product  = ProductModel.objects.all()
+    return render(request, 'warehouse/add_purchase.html',{'suppliers':supplier,'products':product})
 
-def variants(request):
-    variants = Variants.objects.all()
-    return render(request, 'warehouse/variants.html',{'variants':variants})
-
-def add_variants(request):
-    if request.method == "GET":
-        brands  = Supplier.objects.all()
-        products = ProductModel.objects.all()
-        return render(request, 'warehouse/add_variants.html',{'products':products, 'brands':brands})
-    elif request.method == "POST":
-        variants = Variants()
-        variants.color = request.POST['product_color']
-        variants.ram = request.POST['ram']
-        variants.rom = request.POST['rom']
-        variants.brand = request.POST['brand']
-        variants.product = request.POST['product']
-        variants.save()
-        messages.success(request, 'Variants Added succesfully!')
-        return redirect('variants')
 
 def admin_logout(request):
-    request.session.flush()
-    return render(request, 'warehouse/login.html')
+    if request.session.has_key('username'):
+        request.session.delete()
+        return redirect('login')
+    else:
+        return redirect('login')
+

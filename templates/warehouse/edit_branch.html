@@ -1,11 +1,11 @@
 {% extends 'layout/app_layout.html' %}
 {% load static %}
 {% block content %}
-    <h1 class="page-title">Edit Branch</h1>
+ 
     <div class="col-lg-10 col-md-6 float-center">
         <div class="card shadow mb-4">
           <div class="card-header">
-            <strong class="card-title"><i class="fe fe-user fe-16"></i></strong>
+            <h2 class="h5 page-title"><span class="fe fe-home fe-22 mr-2">&nbsp;Edit Branch</span></h2>
           </div>
           <div class="card-body">
             <form class="needs-validation" action="/update_branch/{{branch.id}}" novalidate method="POST">

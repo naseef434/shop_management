@@ -1,14 +1,14 @@
 {% extends 'layout/app_layout.html' %}
 {% load static %}
 {% block content %}
-    <h1 class="page-title">Edit Product</h1>
+   
     <div class="col-lg-10 col-md-6 float-center">
         <div class="card shadow mb-4">
           <div class="card-header">
-            <strong class="card-title"><i class="fe fe-user fe-16"></i></strong>
+            <h2 class="h5 page-title"><span class="fe fe-aperture fe-22 mr-2">&nbsp;Products</span></h2>
           </div>
           <div class="card-body">
-            <form class="needs-validation" action="/update_product/{{product.id}}" novalidate method="POST">
+            <form class="needs-validation" novalidate method="POST" action="{% url 'update_product' product.id %}">
               {% csrf_token %}
              
               <div class="form-row">
@@ -16,7 +16,6 @@
                     <div class="form-group mb-3">
                         <label for="custom-select">Select Brand</label>
                         <select class="custom-select" id="custom-select" name="brand">
-                           <!-- <option>{{product.brand.brand_name}}</option>-->
                             {% for brand in brands %}  
                             <option value="{{brand.id}}">{{brand.brand_name}}</option>
                           {% endfor %}  
@@ -26,13 +25,57 @@
 
                 <div class=" col-md-8 mb-3">
                     <label for="Supplier Name">Product Name</label>
-                    <input type="text" class="form-control" name="product_name" value="{{product.name}}" id="exampleInputEmail1" aria-describedby="emailHelp" required>
+                    <input type="text" class="form-control" name="product_name" value="{{product.name}}" aria-describedby="emailHelp" required>
                     <div class="invalid-feedback"> Please use a valid email </div>
                     
-                  </div>
+                </div>
                
-              <button class="btn btn-primary float-right" type="submit">Submit </button>
+              </div>
+
+              <div class="form-row">
+               
+
+                <div class=" col-md-4 mb-3">
+                    <label for="Supplier Name">Product Color</label>
+                    <input type="text" class="form-control" name="color"value="{{product.color}}" aria-describedby="emailHelp" required>
+                    <div class="invalid-feedback"> Please use a valid email </div>
+                    
+                </div>
+
+                <div class=" col-md-4 mb-3">
+                  <label for="Supplier Name">RAM</label>
+                  <input type="text" class="form-control" name="ram" value="{{product.ram}}" aria-describedby="emailHelp" required>
+                  <div class="invalid-feedback"> Please use a valid email </div>
+                  
+                </div>
+                <div class=" col-md-4 mb-3">
+                  <label for="Supplier Name">ROM</label>
+                  <input type="text" class="form-control" name="rom" value="{{product.rom}}" aria-describedby="emailHelp" required>
+                  <div class="invalid-feedback"> Please use a valid email </div>
+                  
+              </div>
+               
+              </div>
+              <div class="form-row">
+               
+
+             
+                <div class=" col-md-12 mb-3">
+                  <label for="Supplier Name">Discription</label>
+                  <input type="text" class="form-control" name="discription" value="{{product.discription}}" aria-describedby="emailHelp" required>
+                  <div class="invalid-feedback"> Please use a valid email </div>
+                  
+              </div>
+             
+               
+              </div>
+              <div class="form-row">
+                <div class=" col-md-12 mb-3">
+                  <button class="btn btn-primary float-right" type="submit">Submit </button>
+              </div>    
+            </div>
             </form>
+          
           </div> <!-- /.card-body -->
         </div> <!-- /.card -->
       </div> <!-- /.col -->
