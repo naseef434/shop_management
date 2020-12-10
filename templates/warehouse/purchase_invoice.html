@@ -1,0 +1,131 @@
+{% extends 'layout/app_layout.html' %}
+{% load static %}
+{% block content %}
+
+<div class="row justify-content-center">
+    <div class="col-12 col-lg-10 col-xl-8">
+      <div class="row align-items-center mb-4">
+        <div class="col">
+          <h2 class="h5 page-title"><small class="text-muted text-uppercase">page-invoice</small><br />#1806</h2>
+        </div>
+        <div class="col-auto">
+          <button type="button" class="btn btn-secondary" onclick="window.print()">Print</button>
+          
+        </div>
+      </div>
+      <div class="card shadow">
+        <div class="card-body p-5">
+          <div class="row mb-5">
+            <div class="col-12 text-center mb-4">
+              <img src="{% static './assets/images/logo.svg' %}" class="navbar-brand-img brand-sm mx-auto mb-4" alt="...">
+              <h2 class="mb-0 text-uppercase">Invoice</h2>
+              <p class="text-muted"> MARJABAN<br /> ENGAPUZHA, WAYANAD RD </p>
+            </div>
+            <div class="col-md-7">
+              <p class="small text-muted text-uppercase mb-2">Invoice from</p>
+              <p class="mb-4">
+                <strong>APPLE inc </strong><br />Digital Products<br /> Calicut Kerala 32.<br /> YMCA Roads<br /> (91) 9734-3456 78<br />
+              </p>
+              <p>
+                <span class="small text-muted text-uppercase">Invoice #</span><br />
+                <strong>1806</strong>
+              </p>
+            </div>
+            <div class="col-md-5">
+              <p class="small text-muted text-uppercase mb-2">Invoice to</p>
+              <p class="mb-4">
+                <strong>MARJABAN </strong><br />Digital Products<br /> Calicut Kerala 32.<br /> YMCA Roads<br /> (91) 9734-3456 78<br />
+              </p>
+              <p>
+                <small class="small text-muted text-uppercase">Due date</small><br />
+                <strong>April, 20, 2020</strong>
+              </p>
+            </div>
+          </div> <!-- /.row -->
+          <table class="table table-borderless table-striped">
+            <thead>
+              <tr>
+                <th scope="col">#</th>
+                <th scope="col">Description</th>
+                <th scope="col" class="text-right">HSN/SAC</th>
+                <th scope="col" class="text-right">Qty</th>
+                <th scope="col" class="text-right">Rate</th>
+                <th scope="col" class="text-right">PC</th>
+                <th scope="col" class="text-right">Tax</th>
+                <th scope="col" class="text-right">Amount</th>
+                
+                
+              </tr>
+            </thead>
+            <tbody>
+              <tr>
+                <th scope="row">1</th>
+                <td> Iphone 10x<br />
+                  <span class="small text-muted">color : Black , RAM :8, ROM :512 </span>
+                </td>
+                <td class="text-right">289973</td>
+                <td class="text-right">10</td>
+                <td class="text-right">85000</td>
+                <td class="text-right">1</td>
+                <td class="text-right">18%</td>
+                <td class="text-right">85000</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td> Iphone 10x<br />
+                  <span class="small text-muted">color : Black , RAM :8, ROM :512 </span>
+                </td>
+                <td class="text-right">289973</td>
+                <td class="text-right">10</td>
+                <td class="text-right">85000</td>
+                <td class="text-right">1</td>
+                <td class="text-right">18%</td>
+                <td class="text-right">85000</td>
+              </tr>
+              <tr>
+                <th scope="row">1</th>
+                <td> Iphone 10x<br />
+                  <span class="small text-muted">color : Black , RAM :8, ROM :512 </span>
+                </td>
+                <td class="text-right">289973</td>
+                <td class="text-right">10</td>
+                <td class="text-right">85000</td>
+                <td class="text-right">1</td>
+                <td class="text-right">18%</td>
+                <td class="text-right">85000</td>
+              </tr>
+              
+              
+            </tbody>
+          </table>
+          <div class="row mt-5">
+            <div class="col-2 text-center">
+              <img src="{% static  './assets/images/qrcode.svg' %}" class="navbar-brand-img brand-sm mx-auto my-4" alt="...">
+            </div>
+            <div class="col-md-5">
+              <p class="text-muted small">
+                <strong>Note :</strong> Lorem ipsum dolor sit amet, consectetur adipiscing elit. Nam hendrerit nisi sed sollicitudin pellentesque. Nunc posuere purus rhoncus pulvinar aliquam. </p>
+            </div>
+            <div class="col-md-5">
+              <div class="text-right mr-2">
+                <p class="mb-2 h6">
+                  <span class="text-muted">Subtotal : </span>
+                  <strong>85000</strong>
+                </p>
+                <p class="mb-2 h6">
+                  <span class="text-muted">VAT (10%) : </span>
+                  <strong>2400</strong>
+                </p>
+                <p class="mb-2 h6">
+                  <span class="text-muted">Total : </span>
+                  <span>87400</span>
+                </p>
+              </div>
+            </div>
+          </div> <!-- /.row -->
+        </div> <!-- /.card-body -->
+      </div> <!-- /.card -->
+    </div> <!-- /.col-12 -->
+  </div> <!-- .row -->
+
+{% endblock %}

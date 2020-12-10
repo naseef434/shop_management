@@ -1,66 +1,193 @@
 {% extends 'layout/app_layout.html' %}
 {% load static %}
 {% block content %}
+<div class="row">
+  <div class="col-lg-4">
+  </div>
+     <div class="col-lg-4">
+          <!-- alert message-->
+  
+          {% for message in messages %}
+        
+            <div class="alert alert-warning text-center" id="alert" role="alert">
+              <p>{{message}}</p>
+            </div>
 
+        {% endfor %}
+        
+
+  
+        <!--end alert message-->
+     </div>
+     <div class="col-lg-4">
+     </div>
+</div>
     <div class="col-lg-10 col-md-6 float-center">
         <div class="card shadow mb-4">
           <div class="card-header">
             <h2 class="h5 page-title">&nbsp;&nbsp;&nbsp;<span class="fe fe-user fe-22 mr-2">&nbsp;Add Supplier</span></h2>
           </div>
           <div class="card-body">
-            <form class="needs-validation" novalidate method="POST">
+            
+            <form  id="myForm"  method="POST" >
               {% csrf_token %}
               <div class="form-row">
                 <div class=" col-md-8 mb-3">
-                  <label for="Supplier Name">Supplier Name</label>
-                  <input type="text" class="form-control" name="supplier_name" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-                  <div class="invalid-feedback"> Please use a valid email </div>
-                  
+                  <label for="Supplier Name">* Supplier Name</label>
+                  <input type="text" class="form-control"  name="name" >   
+                  <p id="message1"></p>
                 </div>
                 <div class="col-md-4 mb-3">
-                  <label for="validationCustomUsername">Brand</label>
+                  <label for="validationCustomUsername">* Brand</label>
                   <div class="input-group">
-                    <input type="text" class="form-control" name="brand" id="validationCustomUsername" aria-describedby="inputGroupPrepend" required>
-                   
+                    <input type="text" class="form-control" name="brand"  >
                   </div>
+                  <p id="message2"></p>
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label for="validationCustom01">Phone</label>
-                  <input type="text" class="form-control" name="phone" id="validationCustom01"  required>
-                 
+                  <label for="validationCustom01">* Phone</label>
+                  <input type="text" class="form-control" name="phone" id="validationCustom01"  >
+                  <p id="message3"></p>
                 </div>
                 <div class="col-md-6 mb-3">
-                  <label for="validationCustom02">GST/UIN</label>
-                  <input type="text" class="form-control" id="validationCustom02" name="gst" value="Otto" required>
-                  
+                  <label for="validationCustom02">* GST/UIN</label>
+                  <input type="text" class="form-control" name="gst">  
+                  <p id="message4"></p>                
                 </div>
+               
               </div>
               <div class="form-row">
                 <div class="col-md-6 mb-3">
-                  <label for="validationCustom03">State</label>
-                  <input type="text" name="state" class="form-control" id="validationCustom03" required>
+                  <label for="validationCustom03">* State</label>
+                  <input type="text" name="state" class="form-control" >
+                  <p id="message5"></p>
                 </div>
-                
+               
                 <div class="col-md-3 mb-3">
-                  <label for="validationCustom05">code</label>
-                  <input type="text" class="form-control" name="code" id="validationCustom05" required>
-                
+                  <label for="validationCustom05">* code</label>
+                  <input type="text" class="form-control" name="code" id="validationCustom05" >
+                  <p id="message6"></p>
                 </div>
                 <div class="col-md-3 mb-3">
-                  <label for="validationCustom05">email</label>
-                  <input type="email" name="email" class="form-control"  id="validationCustom05" required>
-                
+                  <label for="validationCustom05">* email</label>
+                  <input type="email" name="email" class="form-control"  id="email" >
+                  <p id="message7"></p>
                 </div>
+               
               </div>
+              
               <div class="form-group mb-3">
-                <label for="validationTextarea">Address</label>
-                <textarea class="form-control" id="validationTextarea" name="address" placeholder="Required example textarea" required></textarea>
+                <label for="validationTextarea">* Address</label>
+                <textarea class="form-control"  name="address"  required></textarea>
                 <div class="invalid-feedback"> Please enter a address in the textarea. </div>
+                <p id="message8"> </p>
               </div>
-              <button class="btn btn-primary float-right" type="submit">Submit </button>
+              <input type="hidden"  class="form-control"   >
+             
+              <button class="btn btn-primary float-right" type="submit" id="submit_btn" >Submit </button>
             </form>
           </div> <!-- /.card-body -->
         </div> <!-- /.card -->
       </div> <!-- /.col -->
+
+<script>
+  $(document).ready(function() {
+      $("#submit_btn").click(function() { 
+          //get input field values
+       
+          var name       = $('input[name=name]').val(); 
+          var brand_name   = $('input[name=brand]').val();
+          var phone      = $('input[name=phone]').val();
+          var gst      = $('input[name=gst]').val();
+          var state    = $('input[name=state]').val();
+          var code    = $('input[name=code]').val();
+          var email    = $('input[name=email]').val();
+          var address    = $('textarea[name=address]').val();
+          
+          //simple validation at client's end
+          //we simply change border color to red if empty field using .css()
+          var proceed = true;
+          if(name==""){ 
+              $('input[name=name]').css('border-color','red'); 
+             
+              document.getElementById("message1").innerHTML = "Please fill Your Name";
+              proceed = false;
+          }else{
+            $('input[name=name]').css('border-color','green'); 
+            
+              document.getElementById("message1").innerHTML = "";
+          }
+          if(brand_name==""){ 
+              $('input[name=brand]').css('border-color','red'); 
+              document.getElementById("message2").innerHTML = "Please fill Brand Name";
+              proceed = false;
+          }
+          else{
+            $('input[name=brand]').css('border-color','green'); 
+              document.getElementById("message2").innerHTML = "";
+          }
+          if(phone==""){ 
+              $('input[name=phone]').css('border-color','red'); 
+              document.getElementById("message3").innerHTML = "Please fill Phone number";
+              proceed = false;
+          }else{
+            $('input[name=phone]').css('border-color','green'); 
+              document.getElementById("message3").innerHTML = "";
+          }
+          if(gst==""){ 
+              $('input[name=gst]').css('border-color','red'); 
+              document.getElementById("message4").innerHTML = "Please fill GST number";
+              proceed = false;
+          }else{
+            $('input[name=gst]').css('border-color','green'); 
+              document.getElementById("message4").innerHTML = "";
+          }
+          if(state=="") {    
+              $('input[name=state]').css('border-color','red'); 
+              document.getElementById("message5").innerHTML = "Please fill State";
+              proceed = false;
+          }else{
+            $('input[name=state]').css('border-color','green'); 
+              document.getElementById("message5").innerHTML = "";
+          }
+          if(code=="") {  
+              $('input[name=code]').css('border-color','red'); 
+              document.getElementById("message6").innerHTML = "Enter your State Code";
+              proceed = false;
+          }else{
+            $('input[name=code]').css('border-color','green'); 
+              document.getElementById("message6").innerHTML = "";
+          }
+          if(email=="") {  
+              $('input[name=email]').css('border-color','red');
+              document.getElementById("message7").innerHTML = "Enter your email"; 
+              proceed = false;
+          }else{
+            $('input[name=email]').css('border-color','green'); 
+              document.getElementById("message7").innerHTML = "";
+          }
+          if(address=="") {  
+              $('textarea[name=address]').css('border-color','red'); 
+              document.getElementById("message8").innerHTML = "Enter Address";
+              proceed = false;
+          }else{
+            $('textarea[name=address]').css('border-color','green'); 
+              document.getElementById("message8").innerHTML = "";
+          }
+
+          //everything looks good! proceed...
+          if(proceed) 
+          {
+           
+            // document.getElementById("message4").innerHTML = "<h3>Mail Has Send !</h3>";
+            document.getElementById("myForm").reset();
+              
+          }
+      });
+     
+      
+  });
+</script>
+
 
 {% endblock %}

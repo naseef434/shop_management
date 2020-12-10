@@ -26,6 +26,11 @@ urlpatterns = [
     path('purchase', views.purchase, name="purchase"),
     path('add_purchase', views.add_purchase, name="add_purchase"),
 
+    path('ware_house',views.ware_house, name="ware_house"),
+
+    path('purchase_invoice',views.purchase_invoice,name="purchase_invoice"),
+    path('settings',views.settings, name="settings"),
+
     path('logout', views.admin_logout, name='logout'),
 
 

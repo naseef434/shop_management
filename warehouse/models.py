@@ -11,10 +11,6 @@ class Supplier(models.Model):
     email = models.CharField(max_length=30)
     brand_name = models.CharField(max_length=50)
 
-# #Branch Model
-# class Branch(models.Model):
-#     branch_name = models.CharField(max_length=50)
-#     discription = models.CharField(max_length=50, default=None)
 
 #product model
 class ProductModel(models.Model):
@@ -25,7 +21,16 @@ class ProductModel(models.Model):
     rom = models.CharField(max_length=100,default=None, blank=True, null=True)
     discription = models.CharField(max_length=100,default=None, blank=True, null=True)
 
+#class warehouse
 
+class Warehouse(models.Model):
+    name = models.CharField(max_length=100) 
+    phone = models.CharField(max_length=100)
+    gst = models.CharField(max_length=100)
+    email = models.CharField(max_length=100)
+    state = models.CharField(max_length=100)
+    code = models.CharField(max_length=100)
+    address = models.CharField(max_length=400)      
 
 
    

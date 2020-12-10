@@ -1,0 +1,53 @@
+{% extends 'layout/app_layout.html' %}
+{% load static %}
+{% block content %}
+<div class="container">
+	<table>
+		<tbody>
+			<tr>
+				<td><input type="text" name="name"></td>
+				<td><button class="remove">-</button></td>
+			</tr>
+			<tr>
+				<td><input type="text" name="name"></td>
+				<td><button class="remove">-</button></td>
+			</tr>
+		</tbody>
+	</table>
+	<button id="addRow">+.Add</button>
+	<button id="getvalues">+.get values</button
+
+ </div>
+ <script>
+ 	var html = '<tr><td><input type="text" name="name"></td><td><button class="remove">-</button></td></tr>';
+ 	
+ 	//addrow function 
+ 	$(function() {
+ 		$('tbody').sortable();
+ 		$('#addRow').click(function(){
+ 			$('tbody').append(html);
+ 			// alert("hello")
+ 		});
+
+ 	//remove row function
+
+ 	$(document).on('click', '.remove', function () {
+ 		$(this).parents('tr').remove();
+ 		
+ 	});
+
+ 	//getting values 
+ 	
+ 	$('#getvalues').click(function(){
+ 		var values = [];	
+ 		$('input[name="name"]').each(function(i,elem) {
+ 			values.push($(elem).val());
+ 		})
+ 	alert(values.join(', '));	
+ 	});
+ 	
+ 		
+ 	});
+ </script>
+
+{% endblock %}

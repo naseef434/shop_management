@@ -2,7 +2,7 @@ from django.shortcuts import render,redirect
 from django.http import HttpResponse
 from django.contrib import messages
 from django.contrib.auth.models import User,auth
-from warehouse . models import Supplier,ProductModel
+from warehouse . models import Supplier,ProductModel,Warehouse
 
 
 def warehouse_login(request):
@@ -39,18 +39,22 @@ def supplier(request):
 def add_supplier(request):
      if request.session.has_key('username'):
          if request.method == "POST": 
-            supplier  = Supplier()
-            supplier.supplier_name = request.POST.get('supplier_name') 
-            supplier.brand_name  = request.POST.get('brand')
-            supplier.supplier_phone  = request.POST.get('phone')
-            supplier.gst_uin  = request.POST.get('gst')
-            supplier.state_name  = request.POST.get('state')
-            supplier.code  = request.POST.get('code')
-            supplier.email  = request.POST.get('email')
-            supplier.supplier_address  = request.POST.get('address')
-            supplier.save()
-            messages.success(request, 'Supplier Added successfully')
-            return redirect('supplier')
+            try:
+                supplier  = Supplier()
+                supplier.supplier_name = request.POST.get('supplier_name') 
+                supplier.brand_name  = request.POST.get('brand')
+                supplier.supplier_phone  = request.POST.get('phone')
+                supplier.gst_uin  = request.POST.get('gst')
+                supplier.state_name  = request.POST.get('state')
+                supplier.code  = request.POST.get('code')
+                supplier.email  = request.POST.get('email')
+                supplier.supplier_address  = request.POST.get('address')
+                supplier.save()
+                messages.success(request, 'Supplier Added successfully')
+                return redirect('supplier')
+            except:
+                messages.success(request, 'Something Went Wrong')
+                return redirect('add_supplier')
          else:
             return render(request, 'warehouse/add_supplier.html')
      else:
@@ -191,6 +195,32 @@ def add_purchase(request):
     supplier = Supplier.objects.all()
     product  = ProductModel.objects.all()
     return render(request, 'warehouse/add_purchase.html',{'suppliers':supplier,'products':product})
+
+
+def purchase_invoice(request):
+    return render(request, 'warehouse/purchase_invoice.html')
+
+def settings(request):
+    info = Warehouse.objects.get(id=1)
+    print(info)
+    return render(request, 'warehouse/settings.html',{'info':info})    
+
+def ware_house(request):
+    if request.method == "POST":
+        warehouse = Warehouse()
+        warehouse.name = request.POST['warehouse_name']
+        warehouse.phone = request.POST['phone']
+        warehouse.gst = request.POST['gst']
+        warehouse.email = request.POST['email']
+        warehouse.state = request.POST['state']
+        warehouse.code = request.POST['code']
+        warehouse.address = request.POST['address']
+        warehouse.save()
+        messages.success(request, 'Warehouse Created Successfully')
+        return redirect('dashboard')
+
+    return render(request, 'warehouse/ware_house.html')
+
 
 
 def admin_logout(request):

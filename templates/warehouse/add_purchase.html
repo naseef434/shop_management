@@ -3,160 +3,264 @@
 {% block content %}
 
 
+<script src="{% static 'jquery-3.2.1.min.js' %}"></script>
+<script src="{% static 'select2/dist/js/select2.min.js' %}"></script>
 
-<!-- for new tabl ajax -->
-<script src= 
-"https://ajax.googleapis.com/ajax/libs/jquery/3.4.1/jquery.min.js"> 
-</script> 
-<script src= 
-"https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.7/umd/popper.min.js"> 
-</script> 
-<script src= 
-"https://maxcdn.bootstrapcdn.com/bootstrap/4.3.1/js/bootstrap.min.js"> 
-</script> 
-
-  <script> 
-	$(document).ready(function () { 
-
-	// Denotes total number of rows 
-	var rowIdx = 0; 
-
-	// jQuery button click event to add a row 
-	$('#addBtn').on('click', function () { 
-
-		// Adding a row inside the tbody. 
-		$('#tbody').append(`<tr id="R${++rowIdx}"> 
-			<td class="row-index text-center"> 
-			<p> ${rowIdx}</p> 
-			</td> 
-
-      <td class="pt-3-half" >
-        
-                  <select class="form-control select2" id="simple-select2">
-                    {% for product in products %}   
-                    <option value="">{{product.name}}</option>
-                      
-                      {% endfor %}
-                    
-                  </select>
-                 
-                  <br>
-                  <a href="#">
-                  <span class="fe fe-12 fe-user-plus float-left">&nbsp;Add product</span>
-              </a>
-      </td>
-                <td class="pt-3-half" contenteditable="true" style="text-align: right;"></td>
-                <td class="pt-3-half" contenteditable="true"></td>
-                <td class="pt-3-half" contenteditable="true"></td>
-                <td class="pt-3-half" contenteditable="true"></td>
-                <td class="pt-3-half" contenteditable="true"></td>
-                <td class="pt-3-half" contenteditable="true"></td>
-
-			<td class="text-center"> 
-				<button class="btn btn-danger remove"
-				type="button">Remove</button> 
-				</td> 
-			</tr>`); 
-	}); 
-
-	// jQuery button click event to remove a row. 
-	$('#tbody').on('click', '.remove', function () { 
-
-		// Getting all the rows next to the row 
-		// containing the clicked button 
-		var child = $(this).closest('tr').nextAll(); 
-
-		// Iterating across all the rows 
-		// obtained to change the index 
-		child.each(function () { 
-
-		// Getting <tr> id. 
-		var id = $(this).attr('id'); 
-
-		// Getting the <p> inside the .row-index class. 
-		var idx = $(this).children('.row-index').children('p'); 
-
-		// Gets the row number from <tr> id. 
-		var dig = parseInt(id.substring(1)); 
-
-		// Modifying row index. 
-		idx.html(`Row ${dig - 1}`); 
-
-		// Modifying row id. 
-		$(this).attr('id', `R${dig - 1}`); 
-		}); 
-
-		// Removing the current row. 
-		$(this).closest('tr').remove(); 
-
-		// Decreasing total number of rows by 1. 
-		rowIdx--; 
-	}); 
-	}); 
-</script> 
+<link href="{% static 'select2/dist/css/select2.min.css' %}">
+<link rel="stylesheet" href="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/themes/smoothness/jquery-ui.css">
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jqueryui/1.12.1/jquery-ui.min.js"></script>
 
 <div class="col-lg-12 col-md-6">
   <div class="card shadow mb-4">
     <div class="card-body">
-      
+    
       <div class="form-row">
         <div class="form-group col-md-4">
           <p class="mb-2"><strong>Select Supplier</strong></p>
-          <!-- Dropdown --> 
-          
+          <!-- Dropdown -->
+
           <select id='selUser' style='width: 200px;'>
             {% for supplier in suppliers%}
-              <option value=''>{{supplier.supplier_name}}</option> 
-              {% endfor %}
+            <option value=''>{{supplier.supplier_name}}</option>
+            {% endfor %}
           </select>
-         
+
           <br>
-          <a href="#">
-          <span class="fe fe-12 fe-user-plus">&nbsp;Add Supplier</span>
+          <a href="#" data-toggle="modal" data-target=".modal-full">
+
+            <span class="fe fe-12 fe-user-plus">&nbsp;Add Supplier</span>
           </a>
 
-         </div>
-        
-         <div class="form-group col-md-4">
+        </div>
+
+        <div class="form-group col-md-4">
           <p class="mb-2"><strong>Bill Number</strong></p>
-              <input type="text" class="form-control" name="color" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-              <div class="invalid-feedback"> Please use a valid email </div>
-         </div>
-         <div class="form-group col-md-4">
+          <input type="text" class="form-control" name="color" id="exampleInputEmail1" aria-describedby="emailHelp"
+            required>
+          <div class="invalid-feedback"> Please use a valid email </div>
+        </div>
+        <div class="form-group col-md-4">
           <p class="mb-2"><strong>Date</strong></p>
-              <input type="date" class="form-control" name="color" id="exampleInputEmail1" aria-describedby="emailHelp" required>
-              <div class="invalid-feedback"> Please use a valid email </div>
-         </div>
-         </div> 
-         </div>
-         </div>
-         </div>
+          <input type="date" class="form-control" name="color" id="exampleInputEmail1" aria-describedby="emailHelp"
+            required>
+          <div class="invalid-feedback"> Please use a valid email </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="col-lg-12 col-md-6">
+  <div class="card shadow mb-4">
+    <div class="card-body">
+      <div class="container pt-4">
+        <div class="table-responsive">
+          <table class="table table-bordered">
+            <thead>
+              <tr>
+
+                <th class="text-center" style="color: black;">SI</th>
+                <th class="text-center" style="color: black;">DIscription of Goods</th>
+                <th class="text-center" style="color: black;">HSN/SAC</th>
+                <th class="text-center" style="color: black;">Quantity</th>
+                <th class="text-center" style="color: black;">Rate</th>
+                <th class="text-center" style="color: black;">PC</th>
+                <th class="text-center" style="color: black;">Disc %</th>
+                <th class="text-center" style="color: black;">Amount</th>
+                <th class="text-center" style="color: black;">Remove</th>
+              </tr>
+            </thead>
+            <tbody>
+              
+            </tbody>
+
+            <tfoot>
+              <tr>
+                <td>Sum</td>
+                <td id="totalAmount" >$180</td>
+              </tr>
+            </tfoot>
+
+          </table>
+        </div>
+        <button class="btn btn-md btn-primary" id="addRow" type="button">
+          Add new Item
+        </button>
+        <a href="{% url 'purchase_invoice' %}">
+          <button class="btn btn-md btn-success float-right" type="button" id="getvalues"> Pay</a>
 
 
-<div class="container pt-4"> 
-	<div class="table-responsive"> 
-	<table class="table table-bordered"> 
-		<thead> 
-		<tr> 
-			<th class="text-center">SI</th>
-              <th class="text-center">DIscription of Goods</th>
-              <th class="text-center">HSN/SAC</th>
-              <th class="text-center">Quantity</th>
-              <th class="text-center">Rate</th>
-              <th class="text-center">PC</th>
-              <th class="text-center">Disc %</th>
-              <th class="text-center">Amount</th>
-              <th class="text-center">Remove</th> 
-		</tr> 
-		</thead> 
-		<tbody id="tbody"> 
+      </div>
 
-		</tbody> 
-	</table> 
-	</div> 
-	<button class="btn btn-md btn-primary"
-	id="addBtn" type="button"> 
-		Add new Item
-	</button> 
-</div> 
-  {% endblock %}
+    </div>
+  </div>
+</div>
+
+
+<!-- model -->
+<div class="modal fade modal-full" tabindex="-1" role="dialog" aria-labelledby="mySmallModalLabel" aria-hidden="true">
+  <button aria-label="" type="button" class="close px-2" data-dismiss="modal" aria-hidden="true">
+    <span aria-hidden="true">×</span>
+  </button>
+  <div class="modal-dialog modal-dialog-centered" role="document">
+    <div class="modal-content">
+      <div class="card shadow mb-4">
+        <div class="card-header">
+          <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+            <span aria-hidden="true">&times;</span>
+          </button>
+          <h2 class="h5 page-title">&nbsp;&nbsp;&nbsp;<span class="fe fe-user fe-22 mr-2">&nbsp;Add Supplier</span></h2>
+
+        </div>
+        <div class="card-body">
+          <form class="needs-validation" novalidate method="POST" action="#">
+            {% csrf_token %}
+            <div class="form-row">
+              <div class=" col-md-8 mb-3">
+                <label for="Supplier Name">Supplier Name</label>
+                <input type="text" class="form-control" name="supplier_name" id="exampleInputEmail1"
+                  aria-describedby="emailHelp" required>
+                <div class="invalid-feedback"> Please use a valid email </div>
+
+              </div>
+              <div class="col-md-4 mb-3">
+                <label for="validationCustomUsername">Brand</label>
+                <div class="input-group">
+                  <input type="text" class="form-control" name="brand" id="validationCustomUsername"
+                    aria-describedby="inputGroupPrepend" required>
+
+                </div>
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="validationCustom01">Phone</label>
+                <input type="text" class="form-control" name="phone" id="validationCustom01" required>
+
+              </div>
+              <div class="col-md-6 mb-3">
+                <label for="validationCustom02">GST/UIN</label>
+                <input type="text" class="form-control" id="validationCustom02" name="gst" value="Otto" required>
+
+              </div>
+            </div>
+            <div class="form-row">
+              <div class="col-md-6 mb-3">
+                <label for="validationCustom03">State</label>
+                <input type="text" name="state" class="form-control" id="validationCustom03" required>
+              </div>
+
+              <div class="col-md-3 mb-3">
+                <label for="validationCustom05">code</label>
+                <input type="text" class="form-control" name="code" id="validationCustom05" required>
+
+              </div>
+              <div class="col-md-3 mb-3">
+                <label for="validationCustom05">email</label>
+                <input type="email" name="email" class="form-control" id="validationCustom05" required>
+
+              </div>
+            </div>
+            <div class="form-group mb-3">
+              <label for="validationTextarea">Address</label>
+              <textarea class="form-control" id="validationTextarea" name="address"
+                placeholder="Required example textarea" required></textarea>
+              <div class="invalid-feedback"> Please enter a address  </div>
+            </div>
+            <div class="float-right">
+              <button type="button" class="btn mb-2 btn-warning " data-dismiss="modal">Close</button>
+
+              <button type="button" class="btn mb-2 btn-primary ">Submit</button>
+            </div>
+
+          </form>
+        </div> <!-- /.card-body -->
+      </div> <!-- /.card -->
+    </div>
+  </div>
+</div>
+<!-- ends model here -->
+
+
+
+<!-- <script>
+  $(document).ready(function(){      
+      // Initialize select2
+      $("#selUser").select2();
+
+  });
+  </script> -->
+<script>
+  $(document).ready(function () {
+    // Initialize select2
+    $("#selUser").select2();
+
+  });
+</script>
+<script>
+  var html = '<tr><td contenteditable>1</td><td contenteditable>aksjdh</td><td contenteditable>aksjdh</td><td contenteditable>aksjdh</td><td contenteditable>aksjdh</td><td contenteditable>aksjdh</td><td contenteditable>aksjdh</td><td contenteditable><input type="text" name="amount"></td><td contenteditable>remove</td></tr>';
+
+  //addrow function 
+  $(function () {
+    $('tbody');
+    $('#addRow').click(function () {
+      // alert("hello")
+      $('tbody').append(html);
+
+    });
+
+    //remove row function
+
+    $(document).on('click', '.remove', function () {
+      $(this).parents('tr').remove();
+
+    });
+
+    
+
+    //getting values 
+
+    $('#getvalues').click(function () {
+      var values = [];
+      var amount1 = []
+      var someArray = []
+      $('input[name="name"]').each(function (i, elem) {
+        values.push($(elem).val());
+      })
+      $('input[name="quantity"]').each(function (i, elem) {
+        values.push($(elem).val());
+      })
+      $('input[name="rate"]').each(function (i, elem) {
+        values.push($(elem).val());
+      })
+      $('input[name="pc"]').each(function (i, elem) {
+        values.push($(elem).val());
+      })
+      $('input[name="disc"]').each(function (i, elem) {
+        values.push($(elem).val());
+      })
+      $('input[name="quantity"]').each(function (i, elem) {
+        values.push($(elem).val());
+      })
+      $('input[name="amount"]').each(function (i, elem) {     
+        values.push($(elem).val());
+        amount1.push($(elem).val());
+        var total = 0;
+        for (var i = 0; i < amount1.length; i++) {
+            total += someArray[i] << 0;
+        }
+      })
+     let total =  amount1.reduce((a,b)=>{
+       let numb1 = parseInt(a);
+       let numb2 =parseInt(b)
+       return  numb1+numb2;
+     },0)
+     alert(total);
+      document.getElementById("totalAmount").innerText(total)
+      alert(values.join(', '));
+      alert("heloo")
+    });
+  });
+</script>
+
+
+{% endblock %}
