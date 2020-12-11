@@ -40,18 +40,30 @@ def add_supplier(request):
      if request.session.has_key('username'):
          if request.method == "POST": 
             try:
-                supplier  = Supplier()
-                supplier.supplier_name = request.POST.get('supplier_name') 
-                supplier.brand_name  = request.POST.get('brand')
-                supplier.supplier_phone  = request.POST.get('phone')
-                supplier.gst_uin  = request.POST.get('gst')
-                supplier.state_name  = request.POST.get('state')
-                supplier.code  = request.POST.get('code')
-                supplier.email  = request.POST.get('email')
-                supplier.supplier_address  = request.POST.get('address')
-                supplier.save()
-                messages.success(request, 'Supplier Added successfully')
-                return redirect('supplier')
+                name = request.POST['name']
+                brand = request.POST['brand']
+                phone = request.POST['phone']
+                gst = request.POST['gst']
+                state = request.POST['state']
+                code = request.POST['code']
+                email = request.POST['email']
+                address = request.POST['address']
+                if Supplier.objects.filter(supplier_name=name, brand_name=brand).exists():
+                    messages.success(request, 'Supplier already Exist')
+                    return redirect('supplier')
+                else:
+                    supplier  = Supplier()
+                    supplier.supplier_name = name
+                    supplier.brand_name = brand
+                    supplier.supplier_phone = phone
+                    supplier.gst_uin  = gst
+                    supplier.state_name = state
+                    supplier.code = code
+                    supplier.email = email
+                    supplier.supplier_address =address
+                    supplier.save()
+                    messages.success(request, 'Supplier Added successfully')
+                    return redirect('supplier')    
             except:
                 messages.success(request, 'Something Went Wrong')
                 return redirect('add_supplier')
